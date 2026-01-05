@@ -1,0 +1,10 @@
+from collections import Counter
+def relativeSortArray(arr1, arr2):
+    c = Counter(arr1)
+    res = []
+    for n in arr2:
+        res += [n] * c[n]
+        del c[n]
+    for n in sorted(c.elements()):
+        res.append(n)
+    return res

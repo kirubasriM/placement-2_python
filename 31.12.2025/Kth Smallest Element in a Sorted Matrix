@@ -1,0 +1,14 @@
+import heapq
+def kthSmallest(matrix, k):
+    h = [(matrix[0][0], 0, 0)]
+    n = len(matrix)
+    visited = {(0,0)}
+    for _ in range(k - 1):
+        val, r, c = heapq.heappop(h)
+        if r + 1 < n and (r+1, c) not in visited:
+            heapq.heappush(h, (matrix[r+1][c], r+1, c))
+            visited.add((r+1, c))
+        if c + 1 < n and (r, c+1) not in visited:
+            heapq.heappush(h, (matrix[r][c+1], r, c+1))
+            visited.add((r, c+1))
+    return h[0][0]

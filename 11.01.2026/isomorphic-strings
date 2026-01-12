@@ -1,0 +1,36 @@
+class Solution(object):
+    def isIsomorphic(self, s, t):
+        """
+        :type s: str
+        :type t: str
+        :rtype: bool
+        """
+        # no two character might map to the same character, a character might map to itself
+        n, m = len(s), len(t)
+        if n != m:
+            return False
+
+        tMap, sMap = {}, {}
+        tCount, sCount = [], []
+
+        def helper(currentMap):
+            ret = []
+            for key, value in currentMap.items():
+                ret.append(value)
+            ret.sort()
+            return ret
+
+        for i in range(n):
+            sLetter, tLetter = s[i], t[i]
+            if sLetter not in sMap:
+                sMap[sLetter] = [i]
+            else:
+                sMap[sLetter] += [i]
+
+            if tLetter not in tMap:
+                tMap[tLetter] = [i]
+            else:
+                tMap[tLetter] += [i]
+
+        tCount, sCount = helper(tMap), helper(sMap)
+        return tCount == sCount

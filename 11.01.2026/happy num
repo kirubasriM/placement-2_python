@@ -1,0 +1,22 @@
+class Solution(object):
+    def __init__(self):
+        self.seen = set()
+        
+    def isHappy(self, n):
+        if n == 1:
+            return True
+        elif n in self.seen:
+            return False
+        else:
+            self.seen.add(n)
+            digits = []
+            while n:
+                digits.append(n % 10)
+                n //= 10
+            s = 0
+            for num in digits:
+                s += num * num
+        return self.isHappy(s)
+            
+
+        

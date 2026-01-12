@@ -1,0 +1,50 @@
+class Solution(object):
+    def numIslands(self, grid):
+        """
+        :type grid: List[List[str]]
+        :rtype: int
+        """
+        def solve(r, c, vis):  # Pass the vis matrix as an argument
+            n = len(grid)
+            m = len(grid[0])
+
+            # Mark current cell as visited
+            vis[r][c] = True
+
+            # Define movements in up, down, left, and right directions
+            dp1 = [1, -1, 0, 0]
+            dp2 = [0, 0, -1, 1]
+
+            # Check all four adjacent cells
+            for i in range(4):
+                nr = dp1[i] + r  # new row
+                nc = dp2[i] + c  # new column
+
+                # Check if the adjacent cell is within the grid boundaries,
+                # unvisited, and contains land ('1')
+                if 0 <= nr < n and 0 <= nc < m and not vis[nr][nc] and grid[nr][nc] == '1':
+                    # Recursively call solve function for the adjacent land cell
+                    solve(nr, nc, vis)  # Pass the vis matrix recursively
+
+        # Main function to count the number of islands
+        def dfs(grid):
+            n = len(grid)
+            m = len(grid[0])
+            count = 0
+
+            # Matrix to keep track of visited cells
+            vis = [[False] * m for _ in range(n)]
+
+            # Iterate through each cell in the grid
+            for i in range(n):
+                for j in range(m):
+                    # If current cell is land ('1') and not visited
+                    if grid[i][j] == '1' and not vis[i][j]:
+                        # Call solve function to mark all connected land cells as visited
+                        solve(i, j, vis)  # Pass the vis matrix
+                        # Increment island count
+                        count += 1
+
+            return count
+
+        return dfs(grid)

@@ -1,0 +1,23 @@
+class Solution(object):
+    def combinationSum2(self, candidates, target):
+        candidates.sort()
+        ans=[]
+        n=len(candidates)
+
+        def dfs(idx,curr,t):
+            if t==0:
+                ans.append(curr[:])
+                return
+            
+            for i in range(idx,n):
+                if candidates[i]==candidates[i-1] and i>idx:
+                    continue
+                if candidates[i]>t:
+                    break
+                curr.append(candidates[i])
+                dfs(i+1,curr,t-candidates[i])
+                curr.pop()
+               
+        dfs(0,[],target)
+        return ans
+        

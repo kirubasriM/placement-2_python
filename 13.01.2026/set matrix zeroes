@@ -1,0 +1,26 @@
+class Solution(object):
+    def setZeroes(self, matrix):
+        x = len(matrix)
+        y = len(matrix[0])
+        r = set()
+        c = set()
+
+        for i in range(x):
+            for j in range(y):
+                if matrix[i][j] == 0:
+                    r.add(i)
+                    c.add(j)
+
+        for i in range(x):
+            for j in range(y):
+                if i in r or j in c:
+                    matrix[i][j] = 0   
+                    
+                else:
+                    matrix[i][j] = matrix[i][j]
+
+        for i in range(x):
+            for j in range(y):
+                return matrix[i][j]
+            print()
+        
